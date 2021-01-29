@@ -10,6 +10,7 @@ WINDOW_HEIGHT = 550
 WINDOW_WIDTH = 220
 IMG_WIDTH = 250
 IMG_HEIGHT = 250
+GREEN_HEX_CODE = '#ACE1AF'
 
 #store all the Tops into a file we can access & skip hidden files
 ALL_TOPS = [str('tops/')+ imagefile for imagefile in os.listdir('tops/') if not imagefile.startswith('.')]
@@ -29,9 +30,9 @@ class WardrobeApp:
         self.bottom_image_path = self.bottom_images[0]
 
         #create and add top & bottom image into Frame
-        self.tops_frame = tk.Frame(self.root)
+        self.tops_frame = tk.Frame(self.root, bg = GREEN_HEX_CODE)
         self.top_image_label = self.create_photo(self.top_image_path, self.tops_frame)
-        self.bottoms_frame = tk.Frame(self.root)
+        self.bottoms_frame = tk.Frame(self.root, bg = GREEN_HEX_CODE)
         self.bottom_image_label = self.create_photo(self.bottom_image_path, self.bottoms_frame)
 
         #add it to pack
@@ -67,8 +68,8 @@ class WardrobeApp:
         bottom_next_button = tk.Button(self.bottoms_frame, text="Next", command=self.get_next_bottom)
         bottom_next_button.pack(side=tk.RIGHT)
 
-        create_outfit_button = tk.Button(self.bottoms_frame, text = "CREATE", command = self.get_prev_top)
-        create_outfit_button.pack(side=tk.LEFT)
+        create_outfit_button = tk.Button(self.bottoms_frame, text = "CREATE", command = self.create_outfit)
+        create_outfit_button.pack(side=tk.TOP)
 
     #general function that will allow us to move front and back
     def get_next_item(self, current_item, category, increment = True):
@@ -142,7 +143,11 @@ class WardrobeApp:
         #add clothes onto screen
         self.update_image(self.top_images[new_top_index], self.top_image_label)
         self.update_image(self.bottom_images[new_bottom_index], self.bottom_image_label)
+        
+        
 
-root = tk.Tk()
-app = WardrobeApp(root)
-root.mainloop()
+if __name__ == '__main__':
+    root = tk.Tk()
+    app = WardrobeApp(root)
+
+    root.mainloop()
